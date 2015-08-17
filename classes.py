@@ -1,3 +1,5 @@
+import operator
+
 __author__ = 'Daniel'
 
 
@@ -9,7 +11,7 @@ class Troop(object):
 
 class Barbarian(Troop):
     def __init__(self):
-        super(Barbarian, self).__init__(elixirCost=150, trainingTime=20)
+        super(Barbarian, self).__init__(elixirCost=150.0, trainingTime=20)
 
     def __str__(self):
         return "Barbarian"
@@ -17,7 +19,7 @@ class Barbarian(Troop):
 
 class Archer(Troop):
     def __init__(self):
-        super(Archer, self).__init__(elixirCost=300, trainingTime=25)
+        super(Archer, self).__init__(elixirCost=300.0, trainingTime=25)
 
     def __str__(self):
         return "Archer"
@@ -25,7 +27,7 @@ class Archer(Troop):
 
 class Giant(Troop):
     def __init__(self):
-        super(Giant, self).__init__(elixirCost=2250, trainingTime=2 * 60)
+        super(Giant, self).__init__(elixirCost=2250.0, trainingTime=2 * 60)
 
     def __str__(self):
         return "Giant"
@@ -33,7 +35,7 @@ class Giant(Troop):
 
 class Goblin(Troop):
     def __init__(self):
-        Troop.__init__(self, elixirCost=100, trainingTime=30)
+        Troop.__init__(self, elixirCost=100.0, trainingTime=30)
 
     def __str__(self):
         return "Goblin"
@@ -41,7 +43,7 @@ class Goblin(Troop):
 
 class WallBreaker(Troop):
     def __init__(self):
-        Troop.__init__(self, elixirCost=3000, trainingTime=2 * 60)
+        Troop.__init__(self, elixirCost=3000.0, trainingTime=2 * 60)
 
     def __str__(self):
         return "WallBreaker"
@@ -49,7 +51,7 @@ class WallBreaker(Troop):
 
 class Balloon(Troop):
     def __init__(self):
-        super(Balloon, self).__init__(elixirCost=4000, trainingTime=8 * 60)
+        super(Balloon, self).__init__(elixirCost=4000.0, trainingTime=8 * 60)
 
     def __str__(self):
         return "Balloon"
@@ -57,7 +59,7 @@ class Balloon(Troop):
 
 class Wizard(Troop):
     def __init__(self):
-        super(Wizard, self).__init__(elixirCost=3500, trainingTime=8 * 60)
+        super(Wizard, self).__init__(elixirCost=3500.0, trainingTime=8 * 60)
 
     def __str__(self):
         return "Wizard"
@@ -65,7 +67,7 @@ class Wizard(Troop):
 
 class Healer(Troop):
     def __init__(self):
-        Troop.__init__(self, elixirCost=8000, trainingTime=15 * 60)
+        Troop.__init__(self, elixirCost=8000.0, trainingTime=15 * 60)
 
     def __str__(self):
         return "Healer"
@@ -73,7 +75,7 @@ class Healer(Troop):
 
 class Dragon(Troop):
     def __init__(self):
-        Troop.__init__(self, elixirCost=33000, trainingTime=30 * 60)
+        Troop.__init__(self, elixirCost=33000.0, trainingTime=30 * 60)
 
     def __str__(self):
         return "Dragon"
@@ -81,7 +83,7 @@ class Dragon(Troop):
 
 class Pekka(Troop):
     def __init__(self):
-        Troop.__init__(self, elixirCost=36000, trainingTime=45 * 60)
+        Troop.__init__(self, elixirCost=36000.0, trainingTime=45 * 60)
 
     def __str__(self):
         return "Pekka"
@@ -101,19 +103,13 @@ def main():
     pek = Pekka()
 
     troops = {barb, arch, giant, gob, ball, wiz, heal, drag, pek}
-    costPerTime = 0.0
+    troopsMap = {}
     for troop in troops:
-        elixirCost = troop.elixirCost
-        trainingTime = troop.trainingTime
+        troopsMap[troop.elixirCost / troop.trainingTime] = str(troop)
 
-        if elixirCost / trainingTime > costPerTime:
-            bestTroopToExpendElixir = troop
-            costPerTime = elixirCost / trainingTime
+    sortedTroopsMap = sorted(troopsMap.items(), key=operator.itemgetter(0))
 
-    print bestTroopToExpendElixir
-    print str(costPerTime)
-    #print (bestTroopToExpendElixir + str(costPerTime))
-
+    print sortedTroopsMap
 
 if __name__ == '__main__':
     main()
